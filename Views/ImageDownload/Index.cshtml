@@ -1,0 +1,50 @@
+﻿@using u20801859_Hw03.Models
+@model List<FileModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1 style=" margin-top: 20px;">Images of any file type</h1>
+<h2 style=" margin-top: 20px; "> --------"Media/Images/" folder </h2>
+<div class="container" style="background-color: #d7e8e8">
+    <div class="row">
+
+        @foreach (FileModel file in Model)
+        {
+            <div class="col-sm-12 col-md-3">
+                <div class="card" style="width: 18rem; margin:25px">
+                    <img class="card-img-top" style="width:18rem; height: 300px;" src="~/Media/Images/@file.FileName" alt="Image not found" />
+                    <div class="card-body">
+                        <h4 class="card-title"> @file.FileName</h4>
+
+                        <button style=" background-color: #50C878; margin-right: 15px; top: 90px ">
+                            @*Download image button*@
+                            @Html.ActionLink("Download", "DownloadFile",
+                             new { fileName = file.FileName })
+                        </button>
+
+                        <button style=" background-color: #d11a2a; ">
+                            @*Delete Image Button*@
+                            @Html.ActionLink("DELETE", "DeleteFile",
+                           new { fileName = file.FileName },
+                           new { onclick = "return confirm('Are you sure you want to delete this item?');" })
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+    @*Fancy box*@
+    <script>
+        $(document).ready(function ($) {
+            $(".card-img-top").fancybox();
+        });
+    </script>
+
+
+</div>
+

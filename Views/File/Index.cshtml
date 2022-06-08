@@ -1,0 +1,69 @@
+﻿@using u20801859_Hw03.Models
+@model List<FileModel>
+
+@*
+
+    @model IEnumerable<FileUploadDownload.Models.FileModel>
+    Generated List details
+*@
+@{
+    ViewBag.Title = "Downloader";
+}
+<head>
+    <style type="text/css">
+        .auto-style {
+            color: #FFFFFF;
+        }
+
+        .t {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<div class="well-sm">
+    <h2>Documents of any file type</h2>
+    <p>
+       -----"Media/Documents/" folder
+    </p>
+</div>
+@*// table to display uploaded files*@
+<div style="height: 400px; overflow: auto;background-color: #d7e8e8">
+    <div class="well-sm">
+        <table class="table table-condensed table-hover">
+            <thead style="position: sticky;top: 0">
+                <tr bgcolor="#222222" class="auto-style">
+                    <th class="col-lg-8">File Name</th>
+                    <th class="t, col-lg-2">Download Option</th>
+                    <th class="t, col-lg-2">Delete Option</th>
+                </tr>
+            </thead>
+            @foreach (FileModel file in Model)
+            {
+                <tr>
+                    @*
+                        Default >> @Html.DisplayFor(modelItem => file.FileName)
+                    *@
+
+                    <td>@file.FileName</td>
+                    <td>
+                        <button style="background-color: #50C878"> @*// download button*@
+                            @Html.ActionLink("Download", "DownloadFile",
+                             new { fileName = file.FileName })
+                        </button>
+                    </td>
+                    <td>
+                        <button style="background-color: #d11a2a">
+                            @Html.ActionLink("DELETE", "DeleteFile",
+                           new { fileName = file.FileName },
+                           new { onclick = "return confirm('Are you sure you wish to delete this?');" })
+                        </button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+
